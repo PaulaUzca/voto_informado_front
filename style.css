@@ -1,0 +1,384 @@
+html{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgba(195, 196, 196, 0.421);
+}
+header {
+    background-color: #a7a5a5b3;
+    padding: 20px 0;
+    margin: 20px;
+    height: 100px;
+    border-radius: 10px;
+    min-width: 250px;
+}
+.header{
+    display: inline-block;
+    width: 49.95%;
+    position: relative;
+}
+
+header h1{
+    display: inline-block;
+    margin: 0 0px 0 80px;
+}
+#titulo{
+    
+    position: absolute;
+    top: 32px;
+    left: 15%;
+    font-size: 40px;
+    
+    
+}
+header h1 img{
+    width: 100px;
+    height: 100px;
+}
+header a{
+    position: absolute;
+    top: 42px;
+    left: 172%;
+    text-decoration: none;
+    font-size: 20px;
+    color: black;
+    
+}
+
+
+
+main{
+    padding: 1% 1%;
+    display: flex;
+}
+.mapa{
+    width: 40%;
+    margin-left: 5%;
+}
+
+
+.mapa path{
+    fill: #009688;
+    stroke: rgb(34, 34, 34);
+    stroke-width: 1px;
+}
+.mapa path:hover{
+    fill:#005c53;
+    cursor: pointer;
+}
+
+
+
+
+.form-container {
+    width: 300px;
+    margin: 10px 15%;
+    font-family: Arial, sans-serif;
+}
+
+fieldset {
+    border: 2px solid #009688;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    margin-top: 50px;
+}
+
+legend {
+    color: #009688;
+    font-weight: bold;
+}
+
+
+/* Estilo para las opciones de radio */
+.radio-option {
+    display: block;
+    margin-bottom: 10px; /* Espaciado entre opciones */
+    background-color: #009688;
+    padding: 3px 0;
+}
+
+/* Estilo para las etiquetas de radio */
+.radio-option label {
+    color: white; /* Color de texto */
+}
+
+
+/* Estilo para los radio buttons */
+.radio-option input[type="radio"] {
+    vertical-align: middle; /* Alinear verticalmente con la etiqueta */
+}
+
+label {
+    margin-left: 8px;
+    font-size: 16px;
+}
+
+.hidden-list {
+    display: none;
+}
+
+input[type="submit"] {
+    background-color: #009688;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #007766;
+}
+
+
+
+
+select[name="municipio"] {
+    background-color: #009688;
+    color: white;
+    font-size: 16px; /* Tamaño de fuente aumentado en 2px */
+    padding: 8px; /* Espaciado interno */
+    border: none;
+    border-radius: 4px;
+    width: 100%; /* Ancho del drop-down list al 100% del contenedor */
+}
+
+
+#municipio {
+    background-color: #009688;
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 200px;
+    margin-bottom: 10px;
+}
+
+select[name="candidato"] {
+    background-color: #009688;
+    color: white;
+    font-size: 16px; /* Tamaño de fuente aumentado en 2px */
+    padding: 8px; /* Espaciado interno */
+    border: none;
+    border-radius: 4px;
+    width: 100%; /* Ancho del drop-down list al 100% del contenedor */
+}
+
+/* Estilo para el drop list de candidatos */
+#candidato {
+    background-color: #009688;
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 200px;
+}
+
+
+
+#p{
+    left: 14%;
+}
+#q{
+    left: 23%;
+}
+#botonMostrar{
+    border-top: 4px solid black;
+    border-right: 4px solid black;
+    transform: rotate(45deg);
+    position: absolute;
+    height: 15px;
+    width: 15px;
+    top: 290px;
+    left: 33%;
+    transition: 0.5s ease;
+    cursor: pointer;
+}
+#botonMostrar:hover{
+    left: 33.5%;
+}
+#labelClavePublica{
+    top: 292px;
+    left: 38%;
+    font-size: 15px;
+}
+#clavePublicaE{
+    top: 290px;
+    width: 50px;  
+    height: 15px;
+    text-align: center;
+    font-size: 13px;
+    left: 50%;
+}
+#clavePublicaN{
+    top: 290px;
+    width: 100px;  
+    height: 15px;
+    text-align: center;
+    font-size: 13px;
+    left: 55%;
+}
+#labelClavePrivada{
+    top: 292px;
+    left: 65%;
+    font-size: 15px;
+}
+#clavePrivadaD{
+    top: 290px;
+    width: 50px;  
+    height: 15px;
+    text-align: center;
+    font-size: 13px;
+    left: 77%;
+}
+#clavePrivadaN{
+    top: 290px;
+    width: 100px;  
+    height: 15px;
+    text-align: center;
+    font-size: 13px;
+    left: 82%;
+}
+#claves{
+    transition: opacity 0.5s;
+    
+}
+
+@media (max-width: 600px) {
+    header {
+        background-color: #a7a5a5;
+        padding: 5px 0;
+        margin: 10px;
+        height: 50px;
+        border-radius: 10px;
+        width: 100%;
+    }
+    .header{
+        display: inline-block;
+        width: 100%;
+        position: relative;
+    }
+    
+    header h1{
+        display: inline-block;
+        margin: 0 0px 0 5px;
+    }
+    #titulo{
+        
+        position: absolute;
+        top: 35%;
+        left: 15%;
+        font-size: 18px;
+        
+        
+    }
+    header h1 img{
+        width: 45px;
+        height: 45px;
+        left: 0%;
+    }
+    header a{
+        position: absolute;
+        top: 40%;
+        left: 80%;
+        text-decoration: none;
+        font-size: 12px;
+        color: black;
+        
+    }
+    main{
+        padding: 0px 0px;
+    }
+    textarea{
+        width: 90%;
+        height: 150px;
+        resize: none;
+        padding: 15px;
+        font-size: 15px;
+        margin-top: 15px;
+    }
+    button{
+        display: inline-block;
+        position: absolute;
+        left: 10%;
+        top: 140%;
+        margin: 20px;
+        width: 150px;
+        height: 40px;
+        font-size: 20px;
+    }
+    
+    form{
+        position: relative;
+    }
+    #desencriptar{
+        left: 50%;
+    }
+    label{
+        position: absolute;
+        top: 110%;
+        left: 5%;
+        font-size: 15px;
+    }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input{
+        position: absolute;
+        top: 109%;
+        width: 25%;  
+        height: 20px;
+        text-align: center;
+        font-size: 12px;
+    }
+    #p{
+        left: 30%;
+    }
+    #q{
+        left: 60%;
+    }
+    #botonMostrar{
+        border-top: 4px solid black;
+        border-right: 4px solid black;
+        transform: rotate(45deg);
+        position: absolute;
+        height: 10px;
+        width: 10px;
+        top: 120%;
+        left: 5%;
+        transition: 0.5s ease;
+        cursor: pointer;
+    }
+    #labelClavePublica{
+        top: 120%;
+        left: 15%;
+        font-size: 15px;
+    }
+    #clavePublicaE{
+        top: 120%;
+        left: 55%;
+    }
+    #clavePublicaN{
+        top: 120%;
+        left: 70%;
+    }
+    #labelClavePrivada{
+        top: 130%;
+        left: 5%;
+    }
+    #clavePrivadaD{
+        top: 130%;
+        left: 55%;
+    }
+    #clavePrivadaN{
+        top: 130%;
+        left: 70%;
+    }
+    #claves{
+        transition: opacity 0.5s;
+        
+    }
+
+
+}
