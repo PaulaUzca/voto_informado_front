@@ -1,165 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Capturamos todos los radio buttons
-    const radios = document.querySelectorAll('input[type="radio"][name="opcion"]');
-
-    // Función que se ejecuta cuando se selecciona un radio button
-    function handleSelection(event) {
-        const municipiosList = document.getElementById('municipios-list');
-
-        if (event.target.id !== 'asamblea' && event.target.id !== 'gobernador') {
-            municipiosList.style.display = 'block';
-        } else {
-            municipiosList.style.display = 'none';
-        }
-        localStorage.setItem("Cargo", event.target.id);
-    }
-
-    // Añadimos un event listener a cada radio button
-    radios.forEach(radio => {
-        radio.addEventListener('change', handleSelection);
-    });
     
-});
-
-
-
-document.addEventListener('DOMContentLoaded', function() {
-document.getElementById("municipios-list").addEventListener("change", function () {
-    var candidatoContainer = document.getElementById("candidatos-list");
-    if (this.value !== "") {
-        candidatoContainer.style.display = "block";
-    } else {
-        candidatoContainer.style.display = "none";
-    }
-
-    // Obtener el elemento select
-    const dropdown = document.getElementById("municipio");
-    
-    // Obtener la opción seleccionada
-    const opcionSeleccionada = dropdown.options[dropdown.selectedIndex];
-    
-    // Obtener el valor de la opción seleccionada
-    const valorSeleccionado = opcionSeleccionada.value;
-    localStorage.setItem("Municipio", valorSeleccionado);      
-            
-
-});
-});
-
-
-document.addEventListener('DOMContentLoaded', function() {
-    const links = document.querySelectorAll('.Departamento');
-
-    links.forEach(link => {
-        link.addEventListener('click', function(event) {
-            event.preventDefault();
-            
-            // Obtener el valor del atributo name
-            const nameValue = event.target.id; // o event.target.getAttribute('name');
-            const departamentos = {
-                "COL1283": "Amazonas", 
-                "COL1314": "Antioquia", 
-                "COL1315": "Boyacá", 
-                "COL1316": "Córdoba", 
-                "COL1317": "Santander", 
-                "COL1318": "La Guajira", 
-                "COL1342": "San Andrés y Providencia", 
-                "COL1397": "Caldas", 
-                "COL1398": "Cundinamarca", 
-                "COL1399": "Bogota", 
-                "COL1400": "Quindío", 
-                "COL1401": "Risaralda", 
-                "COL1402": "Tolima", 
-                "COL1403": "Caquetá", 
-                "COL1404": "Cauca", 
-                "COL1405": "Huila", 
-                "COL1406": "Nariño", 
-                "COL1407": "Putumayo", 
-                "COL1408": "Valle del Cauca", 
-                "COL1412": "Atlántico", 
-                "COL1413": "Bolívar", 
-                "COL1414": "Cesar", 
-                "COL1415": "Chocó", 
-                "COL1416": "Magdalena", 
-                "COL1417": "Sucre", 
-                "COL1420": "Arauca", 
-                "COL1421": "Norte de Santander", 
-                "COL1422": "Casanare", 
-                "COL1423": "Guaviare", 
-                "COL1424": "Guainía", 
-                "COL1425": "Meta", 
-                "COL1426": "Vaupés", 
-                "COL1427": "Vichada"
-            };
-            
-            // Ejemplo de uso:
-            let codigo = nameValue;
-            let nombreDepartamento = departamentos[codigo] || "Código no encontrado";
-            console.log(nombreDepartamento); // Mostrará "Cauca"
-            
-            // Obtén el elemento div por su ID
-            const miElemento = document.getElementById("txtDepartamento");
-
-            // Define el texto y el estilo que deseas aplicar
-            const texto = nombreDepartamento;
-            const estilo = "color: #009688; font-size: 30px; font-weight: bold;";
-
-            // Cambia el contenido y el estilo del elemento
-            miElemento.textContent = texto;
-            miElemento.style = estilo;
-
-            localStorage.setItem("Departamento", texto);
-
-
-            const radioButtons = document.querySelectorAll('.radio-option');
-
-            const Departamento = nombreDepartamento.toUpperCase()
-    
-                // Obtén todos los radio buttons del grupo por su nombre
-            var opciones = document.getElementsByName("opcion");
-    
-            // Itera sobre los radio buttons para encontrar el seleccionado
-            for (var i = 0; i < opciones.length; i++) {
-                if (opciones[i].checked) {
-                    // Cuando se encuentra el seleccionado, obtén su valor
-                    var cargo= opciones[i].value.toUpperCase();
-                    break; // Termina el bucle una vez que se ha encontrado el seleccionado
-                }   
-            }
-    
-            console.log(Departamento)
-            /*fetch(http://localhost:5000/municipios?departamento=${Departamento}&cargo=${cargo}`)*/
-            fetch(`https://pauzca.pythonanywhere.com/municipios?departamento=${Departamento}&cargo=${cargo}`)
-            .then(response => response.json())
-            .then(data => {
-                // Muestra los datos en la página
-                
-                const select = document.getElementById('municipio');
-                for (var i = 0; i < data.length; i++) {
-                    
-                    console.log(cargo)
-                    const nuevoValor = select.options.length + 1;  // Valor único para el nuevo elemento
-                    const nuevoElemento = `${data[i]}`;
-    
-                    const newOption = document.createElement('option');
-                    newOption.value = nuevoValor;
-                    newOption.text = nuevoElemento;
-    
-                    select.appendChild(newOption);
-                }
-                console.log(data.length)
-            })
-            .catch(error => {
-                console.error('Error al obtener los datos de la API', error);
-            });
-            });
-        });
-    });
-
-
-
-
-document.addEventListener('DOMContentLoaded', function() {
+    /*ESTILO MAPA AL DAR CLICK */
     const elements = document.getElementsByClassName('delimPath')
     // Define una función para restaurar el color original de todos los elementos
     function restaurarColorOriginal() {
@@ -178,47 +19,265 @@ document.addEventListener('DOMContentLoaded', function() {
         element.style.fill = '#005c53'; // Cambia a tu color deseado
       });
     }
-});
 
 
 
 
-/* CONSULTAS */
 
-document.addEventListener('DOMContentLoaded', function() {
-
-    fetch('http://localhost:5000/consultar?departamento=SANTANDER&cargo=ALCALDE&municipio=BARRANCABERMEJA')
-    .then(response => response.json())
-    .then(data => {
-        // Muestra los datos en la página
+    /*ESCRIBIR Y ALMACENAR EL NOMBRE DEL DPTO AL SELECCIONAR EL MAPA */
+    const links = document.querySelectorAll('.Departamento');
+    var departamentoQ = 0
+    var cargoQ = 0
+    links.forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            /*LIMPIAR RADIO BUTTONS */
+            const opcionesRadio = document.querySelectorAll('input[name="opcion"]');
+            opcionesRadio.forEach(opcion => {
+                opcion.checked = false
+            })
+            /*LIMPIAR LISTA DE CANDIDATOS */
+            const select = document.getElementById('candidato');
+            while (select.options.length > 0) {
+                select.remove(0);
+            }
+            /*LIMPIAR LISTA DE MCIPIOS Y OCULTARLA*/
+            const selectMcipios = document.getElementById('municipio');
+            while (selectMcipios.options.length > 0) {
+                selectMcipios.remove(0);
+            }
+            const municipiosList = document.getElementById('municipios-list');
+            municipiosList.style.display = 'none';
         
-        const select = document.getElementById('candidato');
-        for (var i = 0; i < data.length; i++) {
+            // Obtener el valor del atributo name
+            const nameValue = event.target.id; // o event.target.getAttribute('name');
+            const departamentos = {
+                "COL1283": "Amazonas", 
+                "COL1314": "Antioquia", 
+                "COL1315": "Boyaca", 
+                "COL1316": "Cordoba", 
+                "COL1317": "Santander", 
+                "COL1318": "La Guajira", 
+                "COL1342": "San Andrés y Providencia", 
+                "COL1397": "Caldas", 
+                "COL1398": "Cundinamarca", 
+                "COL1399": "Bogota", 
+                "COL1400": "Quindio", 
+                "COL1401": "Risaralda", 
+                "COL1402": "Tolima", 
+                "COL1403": "Caqueta", 
+                "COL1404": "Cauca", 
+                "COL1405": "Huila", 
+                "COL1406": "Nariño", 
+                "COL1407": "Putumayo", 
+                "COL1408": "Valle del Cauca", 
+                "COL1412": "Atlantico", 
+                "COL1413": "Bolivar", 
+                "COL1414": "Cesar", 
+                "COL1415": "Choco", 
+                "COL1416": "Magdalena", 
+                "COL1417": "Sucre", 
+                "COL1420": "Arauca", 
+                "COL1421": "Norte de Santander", 
+                "COL1422": "Casanare", 
+                "COL1423": "Guaviare", 
+                "COL1424": "Guainia", 
+                "COL1425": "Meta", 
+                "COL1426": "Vaupes", 
+                "COL1427": "Vichada"
+            };
+            
+            let codigo = nameValue;
+            let nombreDepartamento = departamentos[codigo] || "Código no encontrado";
+            console.log(nombreDepartamento); // Mostrará "Cauca"
+            
+            // Obtén el elemento div por su ID
+            const miElemento = document.getElementById("txtDepartamento");
 
-            const nuevoValor = select.options.length + 1;  // Valor único para el nuevo elemento
-            const nuevoElemento = `${data[i]}`;
+            // Define el texto y el estilo que deseas aplicar
+            const texto = nombreDepartamento;
+            const estilo = "color: #009688; font-size: 30px; font-weight: bold;";
 
-            const newOption = document.createElement('option');
-            newOption.value = nuevoValor;
-            newOption.text = nuevoElemento;
+            // Cambia el contenido y el estilo del elemento
+            miElemento.textContent = texto;
+            miElemento.style = estilo;
+            localStorage.setItem("Departamento", texto);
 
-            select.appendChild(newOption);
-        }
-        console.log(data.length)
-    })
-    .catch(error => {
-        console.error('Error al obtener los datos de la API', error);
+            const Departamento = nombreDepartamento.toUpperCase()
+            departamentoQ = Departamento
+            
+        });
     });
-});
 
 
 
-/*PARA LLENAR MUNICIPIOS*/ 
 
-document.addEventListener('DOMContentLoaded', function() {
+    /*CONSULTA DE CANDIDATOS POR MUNICIPIOS*/
+    const lstMcipios = document.getElementById('municipio');
 
+    lstMcipios.addEventListener('change', function() {
+
+        const select = document.getElementById('candidato');
+        while (select.options.length > 0) {
+            select.remove(0);
+        }
+        var municipio = lstMcipios.options[lstMcipios.value-1].textContent.toUpperCase()
+        console.log(municipio)
+        fetch(`https://pauzca.pythonanywhere.com/consultar?departamento=${departamentoQ}&cargo=${cargoQ}&municipio=${municipio}`)
+            .then(response => response.json())
+            .then(data => {
+                
+                for (var i = 0; i < data.length; i++) {
+                    const nuevoValor = select.options.length + 1;
+                    const nuevoElemento = `${data[i]}`;
+
+                    const newOption = document.createElement('option');
+                    newOption.value = nuevoValor;
+                    newOption.text = nuevoElemento;
+
+                    select.appendChild(newOption);
+                }
+            })
+            .catch(error => {
+                console.error('Error al obtener los datos de la API', error);
+            });
+        })
 
 
     
-});
 
+    /*EVENTOS AL DAR CLICK A ALGUN RADIO BUTTON: CONSULTA DE CANDIDATOS POR DPTO, OCULTAR O MOSTRAR LISTA MCIPIOS*/
+    const opcionesRadio = document.querySelectorAll('input[name="opcion"]');
+
+    opcionesRadio.forEach(opcion => {
+        opcion.addEventListener('change', () => {
+
+            /*MOSTRAR LISTA DE MCIPIOS SOLO PARA CONCEJO Y ALCALDE */ 
+            const municipiosList = document.getElementById('municipios-list');
+            var municipioDefault = 0
+            if (opcion.value !== 'Asamblea' && opcion.value !== 'Gobernador') {
+                municipiosList.style.display = 'block';
+                cargoQ = opcion.value.toUpperCase()
+                
+                /*CONSULTA DE MCIPIOS CADA VEZ QUE SE DA CLICK EN UN CARGO */
+                const selectMcipios = document.getElementById('municipio');
+                fetch(`https://pauzca.pythonanywhere.com/municipios?departamento=${departamentoQ}&cargo=${cargoQ}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.length)
+                    
+                    for (var i = 0; i < data.length; i++) {
+                        const nuevoValor = selectMcipios.options.length + 1;  // Valor único para el nuevo elemento
+                        const nuevoElemento = `${data[i]}`;
+                        municipioDefault = `${data[0]}`;
+                        console.log(municipioDefault)
+                        const newOption = document.createElement('option');
+                        newOption.value = nuevoValor;
+                        newOption.text = nuevoElemento;
+                        console.log(nuevoElemento)
+                        selectMcipios.appendChild(newOption); 
+                    }
+                    /*BUSCAR CANDIDATOS PARA EL VALOR POR DEFAULT DE LA LISTA DE MCIPIOS DESPUES DE SELECCIONAR EL CARGO*/
+                    var municipio = municipioDefault
+                    const selectCand = document.getElementById('candidato');
+                    
+                    fetch(`https://pauzca.pythonanywhere.com/consultar?departamento=${departamentoQ}&cargo=${cargoQ}&municipio=${municipio}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        
+                        for (var i = 0; i < data.length; i++) {
+                            const nuevoValor = selectCand.options.length + 1;
+                            const nuevoElemento = `${data[i]}`;
+
+                            const newOption = document.createElement('option');
+                            newOption.value = nuevoValor;
+                            newOption.text = nuevoElemento;
+
+                            selectCand.appendChild(newOption);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error al obtener los datos de la API', error);
+                    });
+
+
+
+                })
+                .catch(error => {
+                    console.error('Error al obtener los datos de la API', error);
+                });
+
+                
+
+
+            } else {
+                municipiosList.style.display = 'none';
+            }
+            localStorage.setItem("Cargo", opcion.value);
+
+            
+            
+            /*BUSCAR CANDIDATOS PARA EL VALOR POR DEFAULT DE LA LISTA DE MCIPIOS DESPUES DE SELECCIONAR EL CARGO*/
+            /*const lstMcipios = document.getElementById('municipio');
+            console.log(lstMcipios.options[0].textContent)
+            var municipio = lstMcipios.options[lstMcipios.value].textContent.toUpperCase()
+            const selectCand = document.getElementById('candidato');
+            
+            fetch(`https://pauzca.pythonanywhere.com/consultar?departamento=${departamentoQ}&cargo=${cargoQ}&municipio=${municipio}`)
+            .then(response => response.json())
+            .then(data => {
+                
+                for (var i = 0; i < data.length; i++) {
+                    const nuevoValor = selectCand.options.length + 1;
+                    const nuevoElemento = `${data[i]}`;
+
+                    const newOption = document.createElement('option');
+                    newOption.value = nuevoValor;
+                    newOption.text = nuevoElemento;
+
+                    selectCand.appendChild(newOption);
+                }
+            })
+            .catch(error => {
+                console.error('Error al obtener los datos de la API', error);
+            });*/
+            
+
+
+            /*LIMPIAR LISTA DE CANDIDATOS */
+            const select = document.getElementById('candidato');
+            while (select.options.length > 0) {
+                select.remove(0);
+            }
+
+            
+          // Verifica si la opción de radio está seleccionada
+            if (opcion.checked) {
+                // Obtiene el valor de la opción seleccionada
+                if(opcion.value == 'Gobernador' || opcion.value == 'Asamblea'){
+                    cargoQ = opcion.value.toUpperCase()
+                    fetch(`https://pauzca.pythonanywhere.com/consultar?departamento=${departamentoQ}&cargo=${cargoQ}&municipio=`)
+                    .then(response => response.json())
+                    .then(data => {
+                        
+                        for (var i = 0; i < data.length; i++) {
+                            const nuevoValor = select.options.length + 1;
+                            const nuevoElemento = `${data[i]}`;
+
+                            const newOption = document.createElement('option');
+                            newOption.value = nuevoValor;
+                            newOption.text = nuevoElemento;
+
+                            select.appendChild(newOption);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error al obtener los datos de la API', error);
+                    });
+                }
+
+            }
+        });
+      });
+        /*EVENTOS AL DAR CLICK A ALGUN RADIO BUTTON: CONSULTA DE CANDIDATOS POR DPTO, OCULTAR O MOSTRAR LISTA MCIPIOS*/
+});
