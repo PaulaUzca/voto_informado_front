@@ -1,92 +1,79 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil de Persona</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color:#a7a5a5b3;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .profile-card {
-            width: 800px;
-            height: 350px;
-            background: #323232cb;
-            border: 1px solid #e0e0e0;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            display: flex;
-        }
-
-        .profile-image {
-            width: 50%;
-            background-color: #009688;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            color: #fff;
-        }
-        .profile-image h1,h2,h3,h4{
-            margin: 10px;
-        }
-
-        .profile-image img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-        }
-
-        .profile-details {
-            width: 50%;
-            padding: 20px;
-            color: white;
-        }
-
-        .profile-details h1 {
-            font-size: 24px;
-            margin: 0;
-        }
-
-        .profile-details ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .profile-details li {
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="profile.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500&family=Work+Sans:ital,wght@0,500;0,800;1,200&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500&family=Roboto:wght@300&family=Work+Sans:ital,wght@0,500;0,800;1,200&display=swap" rel="stylesheet">
+    <title>Candidate Profile</title>
 </head>
 <body>
-    <div class="profile-card">
-        <div class="profile-image">
-            <img src="img/persona2.png" alt="Imagen de la persona">
-            <h2 id="nombreCandidato">Nombre de la Persona</h2>
-            <h4 id="Departamento">d</h4>
-            <h4 id="Cargo">d</h4>
-            <h4 id="Municipio">d</h4>
+    <div class="header">
+        <h2 class="header_text">VOTO INFORMADO</h2></div>
+    <main>
+    <div class="card">
+        <div class="candidate-name">
+            <h1>HUGO ANDRES CARDOSO RUEDA</h1></div>
+        <div class="candidate-info">
+            <p>Santander - Asamblea - Municipio
+                Partido o movimiento político - Partido centro democrático</p>
         </div>
-        <div class="profile-details">
-            <ul>
-                <li>Partido: Partido Político</li>
-                <li>Contratos: Información sobre contratos</li>
-                <li>Candidaturas Previas: Lista de candidaturas anteriores</li>
-                <li>Noticias: Últimas noticias relacionadas</li>
-            </ul>
+        
+        <div class="cards-wrapper">
+            <div class="box-section">
+                <h3>HISTORIAL</h3>
+                <section class="box candidate-history">
+                    <p class="message">Candidaturas previas de este candidato:</p>
+                    <!-- <button>Ver detalle</button> -->
+                </section>
+            </div>
+
+            <div class="box-section">
+                <h3>CONTRATOS</h3>
+                <section class="box candidate-contracts">
+                    <div>
+                        <p style="text-align: left;">Contratos en año de elecciones:</p>
+                        <button class="button-open" id="open-dialog" style="display: block; margin: 0 auto;">86 Contratos</button>
+                    </div>
+                    <div>
+                        <p style="text-align: left;">Contratos simultáneos:</p>
+                        <button class="button-open" style="display: block; margin: 0 auto;">13 Contratos</button>
+                    </div>
+                    <button class="button" style="display: block; margin: 0 auto;">Consultar contratos por entidades</button>
+                </section>
+                
+            </div>
+            
         </div>
     </div>
-    <script src="script_profile.js"></script>
+    <div class="box-section chatsection">                
+        <div class="inline-info"><h3>NOTICIAS</h3>
+            <p class="message">lo que el internet sabe sobre este candidato</p>
+        </div> 
+        <section class="box long">
+            <p class="message">Recopilamos algunas noticias sobre el candidato y esto es lo que sabemos:</p></button>
+        </section>
+        <button class="button" style="display: block; margin: 0 auto;">Consultar fuente</button>
+
+    </div>
+</main>
+
+
+<div class="overlay" id="overlay"></div>
+<div class="dialog-box" id="dialog-box">
+    <span class="close-button" id="close-button">X</span>
+    <!-- Content goes here -->
+    <p>This is the information stored in a variable. It can be any text or data you want to display.</p>
+</div>
+
+
+<script src="profile.js"></script>
+
 </body>
+
 </html>
