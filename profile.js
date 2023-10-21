@@ -1,7 +1,17 @@
 console.log("opening")
+
+[
+  "open-contratos-elecciones",
+  "open-contratos-simultaneos",
+  "open-contratos-entidades",
+  "open-noticias"
+]
   
   // Get references to elements
-  const openButton = document.getElementById('open-dialog');
+  const openContratosElecciones = document.getElementById("open-contratos-elecciones");
+
+
+
   const closeButton = document.getElementById('close-button');
   const overlay = document.getElementById('overlay');
   const dialogBox = document.getElementById('dialog-box');
