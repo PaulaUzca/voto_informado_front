@@ -311,14 +311,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // CLICK EN BOTON DE CONSULTAR CANDIDATO
         const openNewTabButton = document.getElementById('open-new-tab');
-        // Add a click event listener to the button
-        //var nombreCandidato = 'JORGE JULIAN OROSCO GOMEZ'
 
-        openNewTabButton.addEventListener('click', function() {
+        openNewTabButton.addEventListener('click', function(event) {
+            event.preventDefault()
             var nombreCandidato = document.getElementById("candidato")
             .options[document.getElementById("candidato").selectedIndex].textContent
-            //localStorage.setItem("candidato", nombreCandidato);
-            // URL of the second HTML file (page2.html)
             const page2Url = 'perfil.html?candidato='+nombreCandidato;
             openInNewTab(page2Url)
         });
@@ -330,7 +327,7 @@ document.addEventListener('DOMContentLoaded', function() {
               rel: 'noopener noreferrer',
               href: href,
             }).click();
-          }
+        }
     
 
 
