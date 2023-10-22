@@ -96,7 +96,6 @@ function setContratosSimultaneos(contratos){
 }
 
 
-<<<<<<< Updated upstream
 
 function setCandidaturas(datos){
   let s = ""
@@ -127,7 +126,6 @@ function setDatosPrincipales(data){
 }
 
 
-=======
 function setFuentesText(data){
   fuentes = "<hr class='solid'><ul>"
         for(let d of data){
@@ -155,7 +153,6 @@ function stopLoading() {
   loadingIcon.style.display = "none";
 }
 
->>>>>>> Stashed changes
 console.log("opening")
 
 const urlParams = new URLSearchParams(window.location.search);
@@ -187,7 +184,6 @@ async function fetchDataUser(){
     contratos_entidades_text = setContratosEntidades(data.contratos)
     contratos_simultaneos_text = setContratosSimultaneos(data.contratos)
 
-<<<<<<< Updated upstream
     return data;
   }
   catch (err) {
@@ -195,39 +191,21 @@ async function fetchDataUser(){
     return err;
   }
   }
-=======
-  fetch(`https://pauzca.pythonanywhere.com/consultar/persona?nombre=${candidato.replaceAll(' ','%20')}`)
-        .then(response => response.json())
-        .then(data => {
-         // departamento, municipio partido todo eso ...
-
-         //buscar a alguien que tenga candidaturas
-         //data.candidaturas
-          console.log(data)
-          contratos_inhabilitados_text = setContratosElecciones(data.contratos)
-          contratos_entidades_text = setContratosEntidades(data.contratos)
-          contratos_simultaneos_text = setContratosSimultaneos(data.contratos)
-
-
-        })
-        .catch(error => {
-            console.error('Error al obtener los datos de la API', error);
-        });
 
   startLoading();
 
   fetch(`https://pauzca.pythonanywhere.com/resumen?nombre=${candidato.replaceAll(' ','%20')}`)
     .then(response => response.json())
-    .then(data => {
+    .then(data2 => {
         // Hide the loading message when the API call finishes successfully
         stopLoading(); 
-        console.log(data[0]);
-        data=data[0];
-        if (data && Array.isArray(data.news)) {
+        console.log(data2[0]);
+        data2=data2[0];
+        if (data2 && Array.isArray(data2.news)) {
           messageResponse.style.visibility = 'visible';
           messageResponse.style.display = "block";
-          messageResponse.textContent = data.summary;
-          fuentes_text = setFuentesText(data.news);
+          messageResponse.textContent = data2.summary;
+          fuentes_text = setFuentesText(data2.news);
         } else {
             console.error('Unexpected data format:', data);
             messageResponse.textContent = "Error: Unexpected data format from the API";
@@ -243,7 +221,6 @@ async function fetchDataUser(){
         messageResponse.style.display = "block";
         messageResponse.textContent = "Error al obtener los datos de la API";
     });
->>>>>>> Stashed changes
 
   // Attach click event listeners
   openContratosElecciones.addEventListener('click', () =>{
