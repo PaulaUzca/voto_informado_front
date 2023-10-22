@@ -2,11 +2,15 @@
   var contratos_inhabilitados_text = "";
   var contratos_simultaneos_text = "";
   var contratos_entidades_text = "";
-
+  var fuentes_text = "";
 
   const openContratosElecciones = document.getElementById("open-contratos-elecciones");
   const openContratosSimultaneos = document.getElementById("open-contratos-simultaneos");
   const openContratosEntidades = document.getElementById("open-contratos-entidades");
+  const openFuentes = document.getElementById("open-fuentes");
+
+  const loadingIcon = document.querySelector('.loading-icon');
+  const messageResponse = document.querySelector('.response');
 
   const closeButton = document.getElementById('close-button');
   const overlay = document.getElementById('overlay');
@@ -149,6 +153,33 @@ function setDatosPrincipales(data){
 }
 
 
+function setFuentesText(data){
+  fuentes = "<hr class='solid'><ul>"
+        for(let d of data){
+          fuentes = fuentes + `
+          <li><a href='${d.url}' target='_blank'>${d.title}</a></li>
+        
+        `;
+        }
+        fuentes=fuentes+`</ul>`;
+
+  return fuentes;
+}
+
+
+function startLoading() {
+  loadingIcon.style.visibility = 'visible';
+  loadingIcon.style.display = "flex";
+  setTimeout(() => {
+      loadingIcon.querySelector('p').innerText = "Generando un resumen";
+  }, 20000);
+}
+
+function stopLoading() {
+  loadingIcon.style.visibility = 'hidden';
+  loadingIcon.style.display = "none";
+}
+
 console.log("opening")
 
 const urlParams = new URLSearchParams(window.location.search);
@@ -188,9 +219,44 @@ async function fetchDataUser(){
   }
   }
 
+  startLoading();
+
+  fetch(`https://pauzca.pythonanywhere.com/resumen?nombre=${candidato.replaceAll(' ','%20')}`)
+    .then(response => response.json())
+    .then(data2 => {
+        // Hide the loading message when the API call finishes successfully
+        stopLoading(); 
+        console.log(data2[0]);
+        data2=data2[0];
+        if (data2 && Array.isArray(data2.news)) {
+          messageResponse.style.visibility = 'visible';
+          messageResponse.style.display = "block";
+          messageResponse.textContent = data2.summary;
+          fuentes_text = setFuentesText(data2.news);
+        } else {
+            console.error('Unexpected data format:', data);
+            messageResponse.textContent = "Error: Unexpected data format from the API";
+        }
+
+    })
+    .catch(error => {
+        setTimeout(() => { stopLoading(); }, 8000);
+        console.error('Error al obtener los datos de la API', error);
+        // Hide the loading message even if there's an error
+        
+        messageResponse.style.visibility = 'visible';
+        messageResponse.style.display = "block";
+        messageResponse.textContent = "Error al obtener los datos de la API";
+    });
+
   // Attach click event listeners
   openContratosElecciones.addEventListener('click', () =>{
     dialogSpace.innerHTML = contratos_inhabilitados_text;
+    openDialog();
+  });
+
+openFuentes.addEventListener('click', () =>{
+    dialogSpace.innerHTML = fuentes_text;
     openDialog();
   });
 
