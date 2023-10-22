@@ -209,6 +209,27 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 
 
+                /*CONSULTA DEL FILTRO*/
+                /* fetch(`https://pauzca.pythonanywhere.com/filter?departamento=Antioquia&ciudad=Medellín`)
+                    .then(response => response.json())
+                    .then(data => {
+                        
+                        /* for (var i = 0; i < data.length; i++) {
+                            const nuevoValor = selectCand.options.length + 1;
+                            const nuevoElemento = `${data[i]}`;
+
+                            const newOption = document.createElement('option');
+                            newOption.value = nuevoValor;
+                            newOption.text = nuevoElemento;
+
+                            selectCand.appendChild(newOption);
+                        } */
+                    /* })
+                    .catch(error => {
+                        console.error('Error al obtener los datos de la API', error);
+                    }); */ 
+                
+
 
             } else {
                 municipiosList.style.display = 'none';
@@ -274,6 +295,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     .catch(error => {
                         console.error('Error al obtener los datos de la API', error);
                     });
+
+
+
+
+                    /*CONSULTA DEL FILTRO*/
                 }
 
             }
@@ -285,14 +311,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // CLICK EN BOTON DE CONSULTAR CANDIDATO
         const openNewTabButton = document.getElementById('open-new-tab');
-        // Add a click event listener to the button
-        //var nombreCandidato = 'JORGE JULIAN OROSCO GOMEZ'
 
-        openNewTabButton.addEventListener('click', function() {
+        openNewTabButton.addEventListener('click', function(event) {
+            event.preventDefault()
             var nombreCandidato = document.getElementById("candidato")
             .options[document.getElementById("candidato").selectedIndex].textContent
-            //localStorage.setItem("candidato", nombreCandidato);
-            // URL of the second HTML file (page2.html)
             const page2Url = 'perfil.html?candidato='+nombreCandidato;
             openInNewTab(page2Url)
         });
@@ -304,7 +327,11 @@ document.addEventListener('DOMContentLoaded', function() {
               rel: 'noopener noreferrer',
               href: href,
             }).click();
-          }
+        }
+    
+
+
+    
 });
 
 

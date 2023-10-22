@@ -2,11 +2,15 @@
   var contratos_inhabilitados_text = "";
   var contratos_simultaneos_text = "";
   var contratos_entidades_text = "";
-
+  var fuentes_text = "";
 
   const openContratosElecciones = document.getElementById("open-contratos-elecciones");
   const openContratosSimultaneos = document.getElementById("open-contratos-simultaneos");
   const openContratosEntidades = document.getElementById("open-contratos-entidades");
+  const openFuentes = document.getElementById("open-fuentes");
+
+  const loadingIcon = document.querySelector('.loading-icon');
+  const messageResponse = document.querySelector('.response');
 
   const closeButton = document.getElementById('close-button');
   const overlay = document.getElementById('overlay');
@@ -93,20 +97,47 @@ function setContratosSimultaneos(contratos){
 
 
 
-function setCandidaturas(datos){
-  let s = ""
+function setCandidaturas(data){
+ // Accede a la información de candidaturas
+  let datosString = data.candidaturas.info;
+  if (datosString != null){
+    let seccion = document.querySelector('.box.candidate-history');
+    let datos = eval('(' + datosString + ')');
 
-  for(let data of datos.candidaturas.info){
-    s = s + `
-    <div class="candiadate-history">
-      <p><strong>Años:</strong> ${data.Numero_de_Contratos}</p>
-      <p><strong>Valor Total:</strong> ${data.Valor_Total}</p>
-      <p><strong>Fecha de Firma:</strong> ${data.fecha_de_firma}</p>
-      <p><strong>Nombre de Entidad:</strong> ${data.nombre_entidad}</p>
-    </div>
-  `;
+    // Convertimos el objeto a un array de entradas (clave-valor)
+    let entradas = Object.entries(datos);
+
+    // Iteramos sobre cada entrada (ítem) y extraemos la información
+    entradas.forEach(item => {
+        let año = item[0];
+        let nombre = Object.keys(item[1])[0];
+        let valor = item[1][nombre];
+
+         // Creamos un contenedor para los elementos <p>
+        let contenedor = document.createElement('div');
+        contenedor.style.display = "flex";  // Aseguramos que los elementos <p> estén en línea
+
+        // Creamos los elementos <p> para cada dato
+        let pAño = document.createElement('p');
+        pAño.textContent = año+ ':';
+
+        let pNombre = document.createElement('p');
+        pNombre.textContent = ' '+nombre;
+        
+        let pValor = document.createElement('p');
+        pValor.textContent = valor;
+
+        // Agregamos los elementos <p> al contenedor
+        contenedor.appendChild(pAño);
+        contenedor.appendChild(pNombre);
+        contenedor.appendChild(pValor);
+
+        // Agregamos el contenedor a la sección
+        seccion.appendChild(contenedor);
+        
+    });
   }
-  return s;
+ 
 }
 
 function setDatosPrincipales(data){
@@ -121,6 +152,33 @@ function setDatosPrincipales(data){
   tbPartido.textContent = data.partido
 }
 
+
+function setFuentesText(data){
+  fuentes = "<hr class='solid'><ul>"
+        for(let d of data){
+          fuentes = fuentes + `
+          <li><a href='${d.url}' target='_blank'>${d.title}</a></li>
+        
+        `;
+        }
+        fuentes=fuentes+`</ul>`;
+
+  return fuentes;
+}
+
+
+function startLoading() {
+  loadingIcon.style.visibility = 'visible';
+  loadingIcon.style.display = "flex";
+  setTimeout(() => {
+      loadingIcon.querySelector('p').innerText = "Generando un resumen";
+  }, 20000);
+}
+
+function stopLoading() {
+  loadingIcon.style.visibility = 'hidden';
+  loadingIcon.style.display = "none";
+}
 
 console.log("opening")
 
@@ -161,9 +219,44 @@ async function fetchDataUser(){
   }
   }
 
+  startLoading();
+
+  fetch(`https://pauzca.pythonanywhere.com/resumen?nombre=${candidato.replaceAll(' ','%20')}`)
+    .then(response => response.json())
+    .then(data2 => {
+        // Hide the loading message when the API call finishes successfully
+        stopLoading(); 
+        console.log(data2[0]);
+        data2=data2[0];
+        if (data2 && Array.isArray(data2.news)) {
+          messageResponse.style.visibility = 'visible';
+          messageResponse.style.display = "block";
+          messageResponse.textContent = data2.summary;
+          fuentes_text = setFuentesText(data2.news);
+        } else {
+            console.error('Unexpected data format:', data);
+            messageResponse.textContent = "Error: Unexpected data format from the API";
+        }
+
+    })
+    .catch(error => {
+        setTimeout(() => { stopLoading(); }, 8000);
+        console.error('Error al obtener los datos de la API', error);
+        // Hide the loading message even if there's an error
+        
+        messageResponse.style.visibility = 'visible';
+        messageResponse.style.display = "block";
+        messageResponse.textContent = "Error al obtener los datos de la API";
+    });
+
   // Attach click event listeners
   openContratosElecciones.addEventListener('click', () =>{
     dialogSpace.innerHTML = contratos_inhabilitados_text;
+    openDialog();
+  });
+
+openFuentes.addEventListener('click', () =>{
+    dialogSpace.innerHTML = fuentes_text;
     openDialog();
   });
 

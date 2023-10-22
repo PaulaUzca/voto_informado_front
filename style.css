@@ -99,7 +99,7 @@ label {
     display: none;
 }
 
-input[type="submit"] {
+#open-new-tab {
     background-color: #009688;
     color: white;
     padding: 8px 15px;
@@ -108,7 +108,7 @@ input[type="submit"] {
     cursor: pointer;
 }
 
-input[type="submit"]:hover {
+#open-new-tab:hover {
     background-color: #007766;
 }
 
@@ -136,7 +136,7 @@ select[name="municipio"] {
     margin-bottom: 10px;
 }
 
-select[name="candidato"] {
+select[name="candidato"], select[name="candidatoIrregular"] {
     background-color: #009688;
     color: white;
     font-size: 16px; /* Tamaño de fuente aumentado en 2px */
@@ -147,11 +147,54 @@ select[name="candidato"] {
 }
 
 /* Estilo para el drop list de candidatos */
-#candidato {
+#candidato , #candidatoIrregular{
     background-color: #009688;
     color: white;
     padding: 10px;
     border-radius: 4px;
     font-size: 16px;
-    width: 200px;
+    width: 250px;
+}
+
+.loading-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    visibility: visible;
+}
+
+.dots {
+    display: flex;
+    width: 60px !important; 
+    height: 20px !important;
+    justify-content: center;
+    align-items: center;
+}
+
+.dots > div{
+    box-sizing: content-box; 
+    width: 15px !important; 
+    height: 15px !important;
+    margin: 0 3px;
+    border-radius: 50%;
+    background-color: #000000;
+    animation: loading-animation 3s infinite;  /* Adjusted the animation duration to 3s for a slower effect */
+}
+
+.dots > div:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.dots > div:nth-child(3) {
+    animation-delay: 1s;
+}
+
+@keyframes loading-animation {
+    0%, 100% {
+        transform: scale(0.5);
+    }
+    50% {
+        transform: scale(1);
+    }
 }
