@@ -280,4 +280,30 @@ document.addEventListener('DOMContentLoaded', function() {
         });
       });
         /*EVENTOS AL DAR CLICK A ALGUN RADIO BUTTON: CONSULTA DE CANDIDATOS POR DPTO, OCULTAR O MOSTRAR LISTA MCIPIOS*/
+
+
+
+        // CLICK EN BOTON DE CONSULTAR CANDIDATO
+        const openNewTabButton = document.getElementById('open-new-tab');
+        // Add a click event listener to the button
+        var nombreCandidato = 'JORGE JULIAN OROSCO GOMEZ'
+        openNewTabButton.addEventListener('click', function() {
+            //localStorage.setItem("candidato", nombreCandidato);
+            // URL of the second HTML file (page2.html)
+            const page2Url = 'perfil.html?candidato='+nombreCandidato;
+            window.open(page2Url, '_blank');
+        });
+
+
+        function openInNewTab(href) {
+            Object.assign(document.createElement('a'), {
+              target: '_blank',
+              rel: 'noopener noreferrer',
+              href: href,
+            }).click();
+          }
 });
+
+
+
+
