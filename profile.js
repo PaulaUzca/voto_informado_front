@@ -2,11 +2,15 @@
   var contratos_inhabilitados_text = "";
   var contratos_simultaneos_text = "";
   var contratos_entidades_text = "";
-
+  var fuentes_text = "";
 
   const openContratosElecciones = document.getElementById("open-contratos-elecciones");
   const openContratosSimultaneos = document.getElementById("open-contratos-simultaneos");
   const openContratosEntidades = document.getElementById("open-contratos-entidades");
+  const openFuentes = document.getElementById("open-fuentes");
+
+  const loadingIcon = document.querySelector('.loading-icon');
+  const messageResponse = document.querySelector('.response');
 
   const closeButton = document.getElementById('close-button');
   const overlay = document.getElementById('overlay');
@@ -92,6 +96,7 @@ function setContratosSimultaneos(contratos){
 }
 
 
+<<<<<<< Updated upstream
 
 function setCandidaturas(datos){
   let s = ""
@@ -122,6 +127,35 @@ function setDatosPrincipales(data){
 }
 
 
+=======
+function setFuentesText(data){
+  fuentes = "<hr class='solid'><ul>"
+        for(let d of data){
+          fuentes = fuentes + `
+          <li><a href='${d.url}' target='_blank'>${d.title}</a></li>
+        
+        `;
+        }
+        fuentes=fuentes+`</ul>`;
+
+  return fuentes;
+}
+
+
+function startLoading() {
+  loadingIcon.style.visibility = 'visible';
+  loadingIcon.style.display = "flex";
+  setTimeout(() => {
+      loadingIcon.querySelector('p').innerText = "Generando un resumen";
+  }, 20000);
+}
+
+function stopLoading() {
+  loadingIcon.style.visibility = 'hidden';
+  loadingIcon.style.display = "none";
+}
+
+>>>>>>> Stashed changes
 console.log("opening")
 
 const urlParams = new URLSearchParams(window.location.search);
@@ -153,6 +187,7 @@ async function fetchDataUser(){
     contratos_entidades_text = setContratosEntidades(data.contratos)
     contratos_simultaneos_text = setContratosSimultaneos(data.contratos)
 
+<<<<<<< Updated upstream
     return data;
   }
   catch (err) {
@@ -160,10 +195,64 @@ async function fetchDataUser(){
     return err;
   }
   }
+=======
+  fetch(`https://pauzca.pythonanywhere.com/consultar/persona?nombre=${candidato.replaceAll(' ','%20')}`)
+        .then(response => response.json())
+        .then(data => {
+         // departamento, municipio partido todo eso ...
+
+         //buscar a alguien que tenga candidaturas
+         //data.candidaturas
+          console.log(data)
+          contratos_inhabilitados_text = setContratosElecciones(data.contratos)
+          contratos_entidades_text = setContratosEntidades(data.contratos)
+          contratos_simultaneos_text = setContratosSimultaneos(data.contratos)
+
+
+        })
+        .catch(error => {
+            console.error('Error al obtener los datos de la API', error);
+        });
+
+  startLoading();
+
+  fetch(`https://pauzca.pythonanywhere.com/resumen?nombre=${candidato.replaceAll(' ','%20')}`)
+    .then(response => response.json())
+    .then(data => {
+        // Hide the loading message when the API call finishes successfully
+        stopLoading(); 
+        console.log(data[0]);
+        data=data[0];
+        if (data && Array.isArray(data.news)) {
+          messageResponse.style.visibility = 'visible';
+          messageResponse.style.display = "block";
+          messageResponse.textContent = data.summary;
+          fuentes_text = setFuentesText(data.news);
+        } else {
+            console.error('Unexpected data format:', data);
+            messageResponse.textContent = "Error: Unexpected data format from the API";
+        }
+
+    })
+    .catch(error => {
+        setTimeout(() => { stopLoading(); }, 8000);
+        console.error('Error al obtener los datos de la API', error);
+        // Hide the loading message even if there's an error
+        
+        messageResponse.style.visibility = 'visible';
+        messageResponse.style.display = "block";
+        messageResponse.textContent = "Error al obtener los datos de la API";
+    });
+>>>>>>> Stashed changes
 
   // Attach click event listeners
   openContratosElecciones.addEventListener('click', () =>{
     dialogSpace.innerHTML = contratos_inhabilitados_text;
+    openDialog();
+  });
+
+openFuentes.addEventListener('click', () =>{
+    dialogSpace.innerHTML = fuentes_text;
     openDialog();
   });
 
