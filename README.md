@@ -16,3 +16,4 @@ Desarrollamos una página
 Alojamos nuestra página web en ```githubpages```
 
 Tenemos una página de inicio donde se pueden consultar a las personas y son llevadas a una página de su perfil como candidato donde se muestra información sobre contratos, candidaturas previas y noticias sobre este.
+Para esto consumimos datos de nuestra API, puedes ver la documentación aquí: **https://github.com/PaulaUzca/voto_informado**
