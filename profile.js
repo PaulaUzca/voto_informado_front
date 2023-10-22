@@ -82,20 +82,47 @@ function setContratosSimultaneos(contratos){
 
 
 
-function setCandidaturas(datos){
-  let s = ""
+function setCandidaturas(data){
+ // Accede a la información de candidaturas
+  let datosString = data.candidaturas.info;
+  if (datosString != null){
+    let seccion = document.querySelector('.box.candidate-history');
+    let datos = eval('(' + datosString + ')');
 
-  for(let data of datos.candidaturas.info){
-    s = s + `
-    <div class="candiadate-history">
-      <p><strong>Años:</strong> ${data.Numero_de_Contratos}</p>
-      <p><strong>Valor Total:</strong> ${data.Valor_Total}</p>
-      <p><strong>Fecha de Firma:</strong> ${data.fecha_de_firma}</p>
-      <p><strong>Nombre de Entidad:</strong> ${data.nombre_entidad}</p>
-    </div>
-  `;
+    // Convertimos el objeto a un array de entradas (clave-valor)
+    let entradas = Object.entries(datos);
+
+    // Iteramos sobre cada entrada (ítem) y extraemos la información
+    entradas.forEach(item => {
+        let año = item[0];
+        let nombre = Object.keys(item[1])[0];
+        let valor = item[1][nombre];
+
+         // Creamos un contenedor para los elementos <p>
+        let contenedor = document.createElement('div');
+        contenedor.style.display = "flex";  // Aseguramos que los elementos <p> estén en línea
+
+        // Creamos los elementos <p> para cada dato
+        let pAño = document.createElement('p');
+        pAño.textContent = año+ ':';
+
+        let pNombre = document.createElement('p');
+        pNombre.textContent = ' '+nombre;
+        
+        let pValor = document.createElement('p');
+        pValor.textContent = valor;
+
+        // Agregamos los elementos <p> al contenedor
+        contenedor.appendChild(pAño);
+        contenedor.appendChild(pNombre);
+        contenedor.appendChild(pValor);
+
+        // Agregamos el contenedor a la sección
+        seccion.appendChild(contenedor);
+        
+    });
   }
-  return s;
+ 
 }
 
 function setDatosPrincipales(data){
@@ -143,6 +170,8 @@ const nombreCandidato= document.getElementById("nombre_candidato");
           contratos_simultaneos_text = setContratosSimultaneos(data.contratos)
           setDatosPrincipales(data)
           console.log(data.candidaturas.info)
+          setCandidaturas(data)
+          
 
 
         })

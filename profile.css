@@ -136,6 +136,10 @@ td {
     transition: background-color 0.2s;
     align-self: flex-start;
 }
+.box.candidate-history p {
+    display: inline-block;
+    margin: 3px;
+}
 
 .long{
     background-color:  #e9e9e932;;
