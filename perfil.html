@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="common.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500&family=Work+Sans:ital,wght@0,500;0,800;1,200&display=swap" rel="stylesheet">
@@ -22,25 +23,25 @@
     <main>
     <div class="card">
         <div class="candidate-name">
-            <h1>HUGO ANDRES CARDOSO RUEDA</h1>
+            <h1 id="nombre_candidato">HUGO ANDRES CARDOSO RUEDA</h1>
         </div>
         <div style="padding-left: 10px;">
             <table >
                 <tr>
                     <td style="width: 150px; font-weight: bold;">Departamento:</td>
-                    <td>Nombre del Departamento</td>
+                    <td id="tbDepartamento">Nombre del Departamento</td>
                 </tr>
                 <tr>
                     <td style="width: 150px; font-weight: bold;">Cargo:</td>
-                    <td>Nombre del Cargo</td>
+                    <td id="tbCargo">Nombre del Cargo</td>
                 </tr>
                 <tr>
                     <td style="width: 150px; font-weight: bold;">Municipio:</td>
-                    <td>Nombre del Municipio</td>
+                    <td id="tbMunicipio">Nombre del Municipio</td>
                 </tr>
                 <tr>
                     <td style="width: 150px; font-weight: bold;">Partido Político:</td>
-                    <td>Nombre del Partido</td>
+                    <td id="tbPartido">Nombre del Partido</td>
                 </tr>
             </table>
         </div>
@@ -63,13 +64,13 @@
                 <section class="box candidate-contracts">
                     <div>
                         <p style="text-align: left;">Contratos en año de elecciones:</p>
-                        <button class="button-open" id="open-dialog" style="display: block; margin: 0 auto;">86 Contratos</button>
+                        <button class="button-open" id="open-contratos-elecciones" style="display: block; margin: 0 auto;">86 Contratos</button>
                     </div>
                     <div>
                         <p style="text-align: left;">Contratos simultáneos:</p>
-                        <button class="button-open" style="display: block; margin: 0 auto;">13 Contratos</button>
+                        <button class="button-open" id="open-contratos-simultaneos" style="display: block; margin: 0 auto;">13 Contratos</button>
                     </div>
-                    <button class="button" style="display: block; margin: 0 auto;">Consultar contratos por entidades</button>
+                    <button class="button"  id="open-contratos-entidades" style="display: block; margin: 0 auto;">Consultar contratos por entidades</button>
                 </section>
                 
             </div>
@@ -83,7 +84,7 @@
         <section class="box long">
             <p class="message">Recopilamos algunas noticias sobre el candidato y esto es lo que sabemos:</p></button>
         </section>
-        <button class="button" style="display: block; margin: 0 auto;">Consultar fuente</button>
+        <button class="button" id="open-noticias" style="display: block; margin: 0 auto;">Consultar fuente</button>
 
     </div>
 </main>
@@ -93,7 +94,7 @@
 <div class="dialog-box" id="dialog-box">
     <span class="close-button" id="close-button">X</span>
     <!-- Content goes here -->
-    <p>This is the information stored in a variable. It can be any text or data you want to display.</p>
+    <p id="dialog-space">This is the information stored in a variable. It can be any text or data you want to display.</p>
 </div>
 
 
