@@ -27,12 +27,23 @@
       dialogBox.style.display = 'none';
   }
 
-function setContratosElecciones(contratos){
+function setContratosElecciones(data){
+  let contratos = data.contratos
   openContratosElecciones.textContent = contratos.inhabilita.length + " Contratos"
   let s = ""
   for(let contractInfo of contratos.inhabilita){
+    var additional_class  = ""
+    if(
+      (["ALCALDE","CONCEJO"].includes(data.cargo)&&
+      normalizeAndCompareStrings(contractInfo.departamento,data.departamento) &&
+      normalizeAndCompareStrings(contractInfo.ciudad, data.municipio))
+       ||
+       (["GOBERNADOR","ASAMBLEA"].includes(data.cargo) && 
+       normalizeAndCompareStrings(contractInfo.departamento,data.departamento)) ){
+       additional_class = "highlight_contract"
+    }
     s = s + `
-      <div class="contract-details">
+      <div class="contract-details ${additional_class}">
           <p><strong>Ciudad:</strong> ${contractInfo.ciudad}</p>
           <p><strong>Departamento:</strong> ${contractInfo.departamento}</p>
           <p><strong>Fecha de Fin del Contrato:</strong> ${contractInfo.fecha_de_fin_del_contrato}</p>
@@ -141,45 +152,41 @@ function setDatosPrincipales(data){
 console.log("opening")
 
 const urlParams = new URLSearchParams(window.location.search);
-//const candidato = urlParams.get('candidato');
-var candidato = 'JOSE GABRIEL GUERRA MANUYAMA'
-/* var candidato = 'JORGE JULIAN OSORIO GOMEZ' */
+var candidato = urlParams.get('candidato');
+//var candidato = 'JOSE GABRIEL GUERRA MANUYAMA'
 
 console.log(candidato)
 
 const nombreCandidato= document.getElementById("nombre_candidato");
 
-
-
-
 // CAMBIAR TEXTOS
   nombreCandidato.textContent = candidato
+  console.log(candidato)
+  fetchDataUser()
 
+async function fetchDataUser(){
+  try{
+    var response = await fetch(`https://pauzca.pythonanywhere.com/consultar/persona?nombre=${candidato}`, 
+    {method: 'get', withCredential: true, })
+    if (!response.ok) {
+      throw new Error(`Error! status: ${response.status}`);
+    }
 
+    const data = await response.json();
+    console.log(data)
+    setCandidaturas(data)
+    setDatosPrincipales(data)
+    contratos_inhabilitados_text = setContratosElecciones(data)
+    contratos_entidades_text = setContratosEntidades(data.contratos)
+    contratos_simultaneos_text = setContratosSimultaneos(data.contratos)
 
-  fetch(`https://pauzca.pythonanywhere.com/consultar/persona?nombre=${candidato.replaceAll(' ','%20')}`)
-        .then(response => response.json())
-        .then(data => {
-         // departamento, municipio partido todo eso ...
-
-         //buscar a alguien que tenga candidaturas
-         //data.candidaturas
-          console.log(data)
-          contratos_inhabilitados_text = setContratosElecciones(data.contratos)
-          contratos_entidades_text = setContratosEntidades(data.contratos)
-          contratos_simultaneos_text = setContratosSimultaneos(data.contratos)
-          setDatosPrincipales(data)
-          console.log(data.candidaturas.info)
-          setCandidaturas(data)
-          
-
-
-        })
-        .catch(error => {
-            console.error('Error al obtener los datos de la API', error);
-        });
-
-
+    return data;
+  }
+  catch (err) {
+    console.log(err);
+    return err;
+  }
+  }
 
   // Attach click event listeners
   openContratosElecciones.addEventListener('click', () =>{
@@ -203,4 +210,11 @@ const nombreCandidato= document.getElementById("nombre_candidato");
 });
 
 
+function normalizeAndCompareStrings(str1, str2) {
+  // Remove special characters and convert to uppercase
+  const normalizedStr1 = str1.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
+  const normalizedStr2 = str2.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
 
+  // Compare the normalized strings
+  return normalizedStr1 === normalizedStr2;
+}

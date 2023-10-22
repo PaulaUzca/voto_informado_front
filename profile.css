@@ -213,7 +213,7 @@ button:hover {
         min-width: 1000px;
         max-width: 1000px;
         overflow: scroll;
-        max-height: 700px;
+        max-height: 600px;
     }
 
     /* Style for the close button */
@@ -229,4 +229,8 @@ button:hover {
 /* DIALOG BOXES*/
 .contract-details{
 
+}
+
+.highlight_contract{
+    background-color: rgba(255, 174, 0, 0.229);
 }
