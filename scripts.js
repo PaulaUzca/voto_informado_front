@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         var municipio = lstMcipios.options[lstMcipios.value-1].textContent.toUpperCase()
         console.log(municipio)
-        fetch(`https://pauzca.pythonanywhere.com/consultar?departamento=${departamentoQ}&cargo=${cargoQ}&municipio=${municipio}`)
+        fetch(`https://pauzca.pythonanywhere.com/consultar/all?departamento=${departamentoQ}&cargo=${cargoQ}&municipio=${municipio}`)
             .then(response => response.json())
             .then(data => {
                 
@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     var municipio = municipioDefault
                     const selectCand = document.getElementById('candidato');
                     
-                    fetch(`https://pauzca.pythonanywhere.com/consultar?departamento=${departamentoQ}&cargo=${cargoQ}&municipio=${municipio}`)
+                    fetch(`https://pauzca.pythonanywhere.com/consultar/all?departamento=${departamentoQ}&cargo=${cargoQ}&municipio=${municipio}`)
                     .then(response => response.json())
                     .then(data => {
                         
@@ -256,7 +256,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Obtiene el valor de la opción seleccionada
                 if(opcion.value == 'Gobernador' || opcion.value == 'Asamblea'){
                     cargoQ = opcion.value.toUpperCase()
-                    fetch(`https://pauzca.pythonanywhere.com/consultar?departamento=${departamentoQ}&cargo=${cargoQ}&municipio=`)
+                    fetch(`https://pauzca.pythonanywhere.com/consultar/all?departamento=${departamentoQ}&cargo=${cargoQ}&municipio=`)
                     .then(response => response.json())
                     .then(data => {
                         
@@ -286,12 +286,15 @@ document.addEventListener('DOMContentLoaded', function() {
         // CLICK EN BOTON DE CONSULTAR CANDIDATO
         const openNewTabButton = document.getElementById('open-new-tab');
         // Add a click event listener to the button
-        var nombreCandidato = 'JORGE JULIAN OROSCO GOMEZ'
+        //var nombreCandidato = 'JORGE JULIAN OROSCO GOMEZ'
+
         openNewTabButton.addEventListener('click', function() {
+            var nombreCandidato = document.getElementById("candidato")
+            .options[document.getElementById("candidato").selectedIndex].textContent
             //localStorage.setItem("candidato", nombreCandidato);
             // URL of the second HTML file (page2.html)
             const page2Url = 'perfil.html?candidato='+nombreCandidato;
-            window.open(page2Url, '_blank');
+            openInNewTab(page2Url)
         });
 
 

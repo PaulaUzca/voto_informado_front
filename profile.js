@@ -32,11 +32,18 @@ function setContratosElecciones(data){
   openContratosElecciones.textContent = contratos.inhabilita.length + " Contratos"
   let s = ""
   for(let contractInfo of contratos.inhabilita){
-    if(contractInfo.departamento == data.departamento){
-      console.log("hi")
+    var additional_class  = ""
+    if(
+      (["ALCALDE","CONCEJO"].includes(data.cargo)&&
+      normalizeAndCompareStrings(contractInfo.departamento,data.departamento) &&
+      normalizeAndCompareStrings(contractInfo.ciudad, data.municipio))
+       ||
+       (["GOBERNADOR","ASAMBLEA"].includes(data.cargo) && 
+       normalizeAndCompareStrings(contractInfo.departamento,data.departamento)) ){
+       additional_class = "highlight_contract"
     }
     s = s + `
-      <div class="contract-details">
+      <div class="contract-details ${additional_class}">
           <p><strong>Ciudad:</strong> ${contractInfo.ciudad}</p>
           <p><strong>Departamento:</strong> ${contractInfo.departamento}</p>
           <p><strong>Fecha de Fin del Contrato:</strong> ${contractInfo.fecha_de_fin_del_contrato}</p>
@@ -140,6 +147,8 @@ async function fetchDataUser(){
 
     const data = await response.json();
     console.log(data)
+    setCandidaturas(data)
+    setDatosPrincipales(data)
     contratos_inhabilitados_text = setContratosElecciones(data)
     contratos_entidades_text = setContratosEntidades(data.contratos)
     contratos_simultaneos_text = setContratosSimultaneos(data.contratos)
@@ -148,6 +157,7 @@ async function fetchDataUser(){
   }
   catch (err) {
     console.log(err);
+    return err;
   }
   }
 
@@ -173,4 +183,11 @@ async function fetchDataUser(){
 });
 
 
+function normalizeAndCompareStrings(str1, str2) {
+  // Remove special characters and convert to uppercase
+  const normalizedStr1 = str1.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
+  const normalizedStr2 = str2.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
 
+  // Compare the normalized strings
+  return normalizedStr1 === normalizedStr2;
+}
