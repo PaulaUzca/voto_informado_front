@@ -85,6 +85,36 @@ function setContratosSimultaneos(contratos){
 }
 
 
+
+function setCandidaturas(datos){
+  let s = ""
+
+  for(let data of datos.candidaturas.info){
+    s = s + `
+    <div class="candiadate-history">
+      <p><strong>Años:</strong> ${data.Numero_de_Contratos}</p>
+      <p><strong>Valor Total:</strong> ${data.Valor_Total}</p>
+      <p><strong>Fecha de Firma:</strong> ${data.fecha_de_firma}</p>
+      <p><strong>Nombre de Entidad:</strong> ${data.nombre_entidad}</p>
+    </div>
+  `;
+  }
+  return s;
+}
+
+function setDatosPrincipales(data){
+  tbDepartamento = document.getElementById('tbDepartamento')
+  tbCargo = document.getElementById('tbCargo')
+  tbMunicipio = document.getElementById('tbMunicipio')
+  tbPartido = document.getElementById('tbPartido')
+
+  tbDepartamento.textContent = data.departamento
+  tbCargo.textContent = data.cargo
+  tbMunicipio.textContent = data.municipio
+  tbPartido.textContent = data.partido
+}
+
+
 console.log("opening")
 
 const urlParams = new URLSearchParams(window.location.search);

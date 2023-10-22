@@ -3,46 +3,22 @@ html{
     background-color: rgba(195, 196, 196, 0.421);
 }
 header {
-    background-color: #a7a5a5b3;
-    padding: 20px 0;
-    margin: 20px;
-    height: 100px;
-    border-radius: 10px;
-    min-width: 250px;
-}
-.header{
-    display: inline-block;
-    width: 49.95%;
-    position: relative;
+    background-color: #009688;
+    padding: 20px 0; /* Espaciado interno para separar el contenido */
+    text-align: center; /* Centra el texto horizontalmente */
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3); /* Efecto de sombra para resaltar */
+    width: 95%;
+    height: 45px;
+    margin-left: 35px;
 }
 
 header h1{
-    display: inline-block;
-    margin: 0 0px 0 80px;
+    font-family: 'Montserrat';
+    color: white;
+    font-size: 40px; /* Tamaño del texto */
+    margin: 0;
 }
-#titulo{
-    
-    position: absolute;
-    top: 32px;
-    left: 15%;
-    font-size: 40px;
-    
-    
-}
-header h1 img{
-    width: 100px;
-    height: 100px;
-}
-header a{
-    position: absolute;
-    top: 42px;
-    left: 172%;
-    text-decoration: none;
-    font-size: 20px;
-    color: black;
-    
-}
-
 
 
 main{
@@ -50,8 +26,8 @@ main{
     display: flex;
 }
 .mapa{
-    width: 40%;
-    margin-left: 5%;
+    width: 36%;
+    margin-left: 10%;
 }
 
 
