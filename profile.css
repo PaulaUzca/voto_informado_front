@@ -1,66 +1,96 @@
 body {
-    font-family: Work Sans;
     background-color: #f0f0f0;
-}
-
-
-h1{
-    font-size: 30px;
-    margin-bottom: 0;
+    margin: 10px 30px;
 }
 
 h2{
-    font-size: 50px;
+    font-size: 30px;
 }
 
 h3{
+    font-family: Roboto Slab;
+    font-weight: 700;
     font-size: 30px;
     margin-bottom: 5px;
 }
 
 button{
-    font-family: Work Sans;
+    font-size: 24px;
+}
+
+td{
     font-size: 20px;
 }
 
-p{
-    font-family: Roboto;
-font-size: 24px;
+p, a, b, div, button {
+    font-size: 26px;
 }
+
+
+
+/* HEADER */
+
+header {
+    background-color: #009688;
+    padding: 30px 50px; /* Espaciado interno para separar el contenido */
+    padding-top: 50px;
+    text-align: center; /* Centra el texto horizontalmente */
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3); /* Efecto de sombra para resaltar */
+    
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+header .header-title{
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+header #titulo{
+    font-size: 40px; /* Tamaño del texto */
+    margin: 0;
+    font-family: Roboto Slab;
+}
+
+header #subtitulo{
+    margin:0;
+    font-size: 34px;
+    font-weight: 300;
+}
+
+header .header-info{
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    max-width: 400px;
+    min-width: 200px;
+    text-align: left;
+}
+
+header .header-info a,p{
+    margin: 0px;
+    color: black;
+}
+
+/* MAIN */ 
+/* TARJETA DE INFORMACION */
 main{
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    margin: 50px 150px;
-}
-
-header {
-    background-color: #009688;
-    padding: 20px 0; /* Espaciado interno para separar el contenido */
-    text-align: center; /* Centra el texto horizontalmente */
-    border-radius: 5px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3); /* Efecto de sombra para resaltar */
-    width: 95%;
-    height: 45px;
-    margin-left: 35px;
-}
-
-header h1{
-    font-family: 'Montserrat';
-    color: white;
-    font-size: 40px; /* Tamaño del texto */
-    margin: 0;
-}
-
-.message{
-    font-style: italic;
+    margin: 50px 20px;
 }
 
 .card {
     background-color: #ffffff;
-    width: 90%; /* Increased width */
-    max-width: 1000px;
+    width: 90%;
+    max-width: 1220px;
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -90,8 +120,7 @@ td {
      /* Opcional: establece el peso de la fuente en negrita */
 }
 .candidate-info p{
-    font-family: Work Sans;
-    font-size: 20px;
+    font-family:Roboto;
     font-weight: 500;
 }
 
@@ -102,12 +131,14 @@ td {
 }
 
 .box-section {
+    margin-top: 10px;
     padding: 15px;
     padding-top: 0px;
     gap: 10px;
     flex: 1;
 }
 .box{
+    margin-top: 15px;
     background: #e9e9e932;
     min-height: 200px;
     box-shadow: 0px 10px 10px 5px rgba(0, 0, 0, 0.10);
@@ -125,7 +156,7 @@ td {
     align-items: center;
 }
 
-.button {
+button {
     background-color: #009688;
     color: #ffffff;
     padding: 10px 20px;
@@ -171,13 +202,10 @@ button:hover {
     background-color: transparent;
     border: 1px solid transparent;
     padding: 6px 12px;
-    font-size: 1rem;
     border-radius: .25rem;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     color: #000000;
     font-weight: bold;
-    font-family: Work Sans;
-    font-size: 20px;
 }
 
 .button-open:hover {
@@ -231,6 +259,68 @@ button:hover {
 
 }
 
+/* EXCEPCION SI ESTA DENTRO DE contract-details */
+.contract-details p, strong, a{
+    font-size:20px;
+    line-height: 30px;
+    line-break: auto;
+}
+
 .highlight_contract{
     background-color: rgba(255, 174, 0, 0.229);
+}
+
+
+/** FOOTER **/
+footer{
+    border-top: 1px solid #000;
+    padding: 50px 0px;
+}
+
+.footer_container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 70px;
+}
+
+footer .section_footer{
+    min-width: 100px;
+    max-width: 375px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 33px;
+}
+
+footer .section_footer_title{
+    font-family: Roboto Slab;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+footer .vaki{
+    background-image: url('https://i.imgur.com/7qAWzwM.png');
+    width: 370px;
+    height: 150px;
+    background-size: cover;
+}
+
+footer .laconga{
+    background-image: url('https://i.imgur.com/Sgo7dhL.png');
+    width: 374px;
+    height: 323px;
+    background-size:cover;
+}
+
+footer .red{
+    background-image: url('https://i.imgur.com/qbMXHxH.png');
+    width: 353px;
+    height: 146px;
+    background-size:cover;
+
 }

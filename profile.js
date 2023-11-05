@@ -58,7 +58,7 @@ function setContratosElecciones(data){
           <p><strong>Objeto del Contrato:</strong> ${contractInfo.objeto_del_contrato}</p>
           <p><strong>Tipo de Contrato:</strong> ${contractInfo.tipo_de_contrato}</p>
           <p><strong>URL del Proceso:</strong> <a href="${contractInfo.urlproceso.url}" target="_blank">${contractInfo.urlproceso.url}</a></p>
-          <p><strong>Valor del Contrato:</strong> ${contractInfo.valor_del_contrato}</p>
+          <p><strong>Valor del Contrato:</strong> ${formatMoney(contractInfo.valor_del_contrato)} COP</p>
       </div>
       <hr class="solid">
   `;
@@ -100,8 +100,10 @@ function setContratosSimultaneos(contratos){
 function setCandidaturas(data){
  // Accede a la información de candidaturas
   let datosString = data.candidaturas.info;
-  if (datosString != null){
-    let seccion = document.querySelector('.box.candidate-history');
+  let seccion = document.querySelector('#contenido_candidaturas');
+  seccion.innerHTML = ""
+  console.log(datosString)
+  if (!datosString){
     let datos = eval('(' + datosString + ')');
 
     // Convertimos el objeto a un array de entradas (clave-valor)
@@ -136,6 +138,9 @@ function setCandidaturas(data){
         seccion.appendChild(contenedor);
         
     });
+  }
+  else{
+    seccion.innerHTML = "No se encontraron candidaturas previas."
   }
  
 }
@@ -219,9 +224,10 @@ async function fetchDataUser(){
   }
   }
 
-  startLoading();
+  // Esto es para lo de chatgpt
+  //startLoading();
 
-  fetch(`https://pauzca.pythonanywhere.com/resumen?nombre=${candidato.replaceAll(' ','%20')}`)
+/*   fetch(`https://pauzca.pythonanywhere.com/resumen?nombre=${candidato.replaceAll(' ','%20')}`)
     .then(response => response.json())
     .then(data2 => {
         // Hide the loading message when the API call finishes successfully
@@ -247,7 +253,7 @@ async function fetchDataUser(){
         messageResponse.style.visibility = 'visible';
         messageResponse.style.display = "block";
         messageResponse.textContent = "Error al obtener los datos de la API";
-    });
+    }); */
 
   // Attach click event listeners
   openContratosElecciones.addEventListener('click', () =>{
@@ -255,20 +261,20 @@ async function fetchDataUser(){
     openDialog();
   });
 
-openFuentes.addEventListener('click', () =>{
+/* openFuentes.addEventListener('click', () =>{
     dialogSpace.innerHTML = fuentes_text;
     openDialog();
   });
-
+ */
   openContratosSimultaneos.addEventListener('click', () =>{
     dialogSpace.innerHTML = contratos_simultaneos_text;
     openDialog();
   });
 
-  openContratosEntidades.addEventListener('click', () =>{
+/*   openContratosEntidades.addEventListener('click', () =>{
     dialogSpace.innerHTML = contratos_entidades_text;
     openDialog();
-  });
+  }); */
 
   closeButton.addEventListener('click', closeDialog);
   overlay.addEventListener('click', closeDialog);
@@ -283,4 +289,10 @@ function normalizeAndCompareStrings(str1, str2) {
 
   // Compare the normalized strings
   return normalizedStr1 === normalizedStr2;
+}
+
+
+/** FUNCTIONES AUXILIARES */
+function formatMoney(money) {
+  return money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
